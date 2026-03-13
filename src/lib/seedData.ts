@@ -21,15 +21,23 @@ export function generateSeedData(): MissingPerson[] {
   const persons: MissingPerson[] = [];
   const statuses: MissingPerson["status"][] = ["missing", "found", "investigating"];
 
+  // Use a seeded random to get consistent but varied ages
+  const agePool = [5,7,8,10,12,14,16,18,20,22,24,25,27,28,30,32,34,35,37,38,40,42,44,45,47,48,50,52,55,58,60,62,65,68,70,72,74,6,9,11,13,15,17,19,21,23,26,29,31,33,36,39,41,43,46,49,51,53,54,56,57,59,61,63,64,66,67,69,71,73,75,4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64,68,72,55,35,25,45,15,65,10,50,30,70,22,42];
+
   for (let i = 0; i < 100; i++) {
     const isMale = i < 50;
     const firstName = isMale ? firstNamesMale[i % firstNamesMale.length] : firstNamesFemale[i % firstNamesFemale.length];
     const lastName = lastNames[i % lastNames.length];
     const gender = isMale ? "male" : "female";
-    const age = 5 + Math.floor(Math.random() * 70);
-    const portraitIndex = (i % 50) + 1; // randomuser portraits go 0-99
+    const age = agePool[i];
+    
+    // Use unique portrait indices (0-99 available on randomuser.me)
+    const portraitIndex = i % 100;
     const folder = isMale ? "men" : "women";
-    const imageUrl = `https://randomuser.me/api/portraits/${folder}/${portraitIndex}.jpg`;
+    // For kids (age < 18), use lego portraits for variety; adults use normal portraits
+    const imageUrl = age < 18 
+      ? `https://randomuser.me/api/portraits/lego/${portraitIndex}.jpg`
+      : `https://randomuser.me/api/portraits/${folder}/${portraitIndex}.jpg`;
 
     // Distribute statuses: ~50 missing, ~25 found, ~25 investigating
     let status: MissingPerson["status"];
