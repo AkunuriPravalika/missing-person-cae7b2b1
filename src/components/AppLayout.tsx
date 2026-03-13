@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
-  { to: "/register", icon: Upload, label: "Register" },
-  { to: "/search", icon: Search, label: "Search" },
+  { to: "/register", icon: Upload, label: "Report" },
+  { to: "/search", icon: Search, label: "Face Match" },
   { to: "/database", icon: Users, label: "Database" },
 ];
 
@@ -14,11 +14,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Top Bar */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16 px-4">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded bg-primary/20 border border-primary/40 flex items-center justify-center glow-primary">
+            <div className="w-9 h-9 rounded bg-primary/20 border border-primary/40 flex items-center justify-center">
               <Shield className="w-5 h-5 text-primary" />
             </div>
             <div>
@@ -51,7 +50,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      {/* Main */}
       <main className="flex-1">
         {children}
       </main>

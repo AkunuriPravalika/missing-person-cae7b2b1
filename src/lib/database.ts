@@ -1,10 +1,28 @@
 import { MissingPerson } from "@/lib/types";
+import { generateSeedData } from "@/lib/seedData";
 
 const DB_KEY = "missing_persons_db";
+const SEED_KEY = "missing_persons_seeded_v2";
 
-export function getAllPersons(): MissingPerson[] {
+function ensureSeeded(): void {
+  if (!localStorage.getItem(SEED_KEY)) {
+    const existing = getAllPersonsRaw();
+    if (existing.length === 0) {
+      const seed = generateSeedData();
+      localStorage.setItem(DB_KEY, JSON.stringify(seed));
+    }
+    localStorage.setItem(SEED_KEY, "true");
+  }
+}
+
+function getAllPersonsRaw(): MissingPerson[] {
   const data = localStorage.getItem(DB_KEY);
   return data ? JSON.parse(data) : [];
+}
+
+export function getAllPersons(): MissingPerson[] {
+  ensureSeeded();
+  return getAllPersonsRaw();
 }
 
 export function addPerson(person: MissingPerson): void {

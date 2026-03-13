@@ -10,7 +10,7 @@ import { getAllPersons } from "@/lib/database";
 import { detectFace, compareFaces, distanceToSimilarity, loadModels } from "@/lib/faceDetection";
 import { MatchResult } from "@/lib/types";
 
-const MATCH_THRESHOLD = 55; // percent
+const MATCH_THRESHOLD = 55;
 
 export default function SearchPage() {
   const [imageDataUrl, setImageDataUrl] = useState("");
@@ -63,9 +63,9 @@ export default function SearchPage() {
       setResults(matches);
 
       if (matches.length > 0) {
-        toast.success(`Found ${matches.length} potential match(es)!`);
+        toast.success("Match found!");
       } else {
-        toast.info("No matches found above threshold");
+        toast.info("Not Match");
       }
     } catch (err) {
       toast.error("Error during face search");
@@ -82,14 +82,14 @@ export default function SearchPage() {
           <CardHeader>
             <CardTitle className="text-xl flex items-center gap-2">
               <Search className="w-5 h-5 text-primary" />
-              Face Search & Match
+              Face Match
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <ImageUpload
               onImageSelected={setImageDataUrl}
               currentImage={imageDataUrl || null}
-              label="Upload Suspected Person Image"
+              label="Upload Image to Match"
             />
             <Button
               onClick={handleSearch}
@@ -97,22 +97,15 @@ export default function SearchPage() {
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
             >
               {searching ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Analyzing Face...
-                </>
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Analyzing Face...</>
               ) : (
-                <>
-                  <Brain className="w-4 h-4 mr-2" />
-                  Search Database
-                </>
+                <><Brain className="w-4 h-4 mr-2" />Search Database</>
               )}
             </Button>
           </CardContent>
         </Card>
       </motion.div>
 
-      {/* Results */}
       <AnimatePresence>
         {results !== null && (
           <motion.div
@@ -124,8 +117,8 @@ export default function SearchPage() {
             {results.length === 0 ? (
               <Card className="bg-card border-border">
                 <CardContent className="p-8 text-center space-y-3">
-                  <XCircle className="w-12 h-12 text-muted-foreground mx-auto" />
-                  <h3 className="text-lg font-bold">No Matches Found</h3>
+                  <XCircle className="w-12 h-12 text-destructive mx-auto" />
+                  <h3 className="text-2xl font-bold text-destructive">Not Match</h3>
                   <p className="text-sm text-muted-foreground">
                     The uploaded face did not match any records in the database.
                   </p>
@@ -139,13 +132,7 @@ export default function SearchPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <Card
-                    className={`border ${
-                      match.similarity >= 80
-                        ? "border-accent glow-accent"
-                        : "border-warning"
-                    }`}
-                  >
+                  <Card className="border border-accent">
                     <CardContent className="p-4 flex gap-4">
                       <img
                         src={match.person.imageDataUrl}
@@ -155,28 +142,18 @@ export default function SearchPage() {
                       <div className="flex-1 space-y-2">
                         <div className="flex items-center justify-between">
                           <h3 className="font-bold text-lg">{match.person.name}</h3>
-                          <div
-                            className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-mono-tech ${
-                              match.similarity >= 80
-                                ? "bg-accent/15 text-accent"
-                                : "bg-warning/15 text-warning"
-                            }`}
-                          >
-                            {match.similarity >= 80 ? (
-                              <CheckCircle2 className="w-3 h-3" />
-                            ) : null}
-                            {match.similarity.toFixed(1)}% MATCH
+                          <div className="flex items-center gap-1 px-3 py-1 rounded bg-accent/15 text-accent text-sm font-bold">
+                            <CheckCircle2 className="w-4 h-4" />
+                            Match — {match.similarity.toFixed(1)}%
                           </div>
                         </div>
                         <div className="text-sm text-muted-foreground space-y-0.5">
-                          <p>Age: {match.person.age} | Gender: {match.person.gender}</p>
-                          <p>Last Seen: {match.person.lastSeen || "N/A"}</p>
+                          <p>Age: {match.person.age} | Gender: {match.person.gender} | Blood: {match.person.bloodGroup || "N/A"}</p>
+                          <p>Height: {match.person.height || "N/A"} | Weight: {match.person.weight || "N/A"}</p>
+                          <p>Last Seen: {match.person.lastSeen || "N/A"} ({match.person.lastSeenDate || "N/A"})</p>
                           <p>Status: <span className="uppercase font-semibold">{match.person.status}</span></p>
                         </div>
-                        <Progress
-                          value={match.similarity}
-                          className="h-2"
-                        />
+                        <Progress value={match.similarity} className="h-2" />
                       </div>
                     </CardContent>
                   </Card>

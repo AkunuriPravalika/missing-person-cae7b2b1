@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Users, Trash2, AlertTriangle, CheckCircle2, Eye } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getAllPersons, deletePerson, updatePersonStatus } from "@/lib/database";
@@ -48,7 +48,7 @@ export default function DatabasePage() {
               <Users className="w-12 h-12 text-muted-foreground mx-auto" />
               <h3 className="text-lg font-bold">No Records</h3>
               <p className="text-sm text-muted-foreground">
-                Register a missing person to get started.
+                Report a missing person to get started.
               </p>
             </CardContent>
           </Card>
@@ -61,19 +61,19 @@ export default function DatabasePage() {
                   key={person.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.02 }}
                 >
                   <Card className="bg-card border-border overflow-hidden">
                     <div className="flex">
                       <img
                         src={person.imageDataUrl}
                         alt={person.name}
-                        className="w-32 h-full object-cover border-r border-border"
+                        className="w-28 h-auto object-cover border-r border-border"
                       />
-                      <CardContent className="p-4 flex-1 space-y-2">
+                      <CardContent className="p-3 flex-1 space-y-1.5">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="font-bold text-lg leading-tight">{person.name}</h3>
+                            <h3 className="font-bold text-base leading-tight">{person.name}</h3>
                             <p className="text-xs text-muted-foreground">
                               Age {person.age} · {person.gender}
                             </p>
@@ -83,16 +83,11 @@ export default function DatabasePage() {
                             {sc.label}
                           </Badge>
                         </div>
-                        <p className="text-xs text-muted-foreground">
-                          Last seen: {person.lastSeen || "N/A"}
-                        </p>
-                        <p className="text-xs text-muted-foreground line-clamp-2">
-                          {person.description || "No description"}
-                        </p>
-                        <p className="text-[10px] font-mono-tech text-muted-foreground">
-                          Face data: {person.faceDescriptor ? "✓" : "✗"} · Reported:{" "}
-                          {new Date(person.dateReported).toLocaleDateString()}
-                        </p>
+                        <div className="text-xs text-muted-foreground space-y-0.5">
+                          <p>Blood: {person.bloodGroup || "N/A"} · Height: {person.height || "N/A"} · Weight: {person.weight || "N/A"}</p>
+                          <p>Last seen: {person.lastSeen || "N/A"} ({person.lastSeenDate || "N/A"})</p>
+                          <p className="line-clamp-1">{person.description || "No description"}</p>
+                        </div>
                         <div className="flex gap-1.5 pt-1">
                           {(["missing", "investigating", "found"] as const).map((s) => (
                             <Button
