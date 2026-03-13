@@ -4,12 +4,16 @@ export interface MissingPerson {
   age: number;
   gender: string;
   lastSeen: string;
+  lastSeenDate: string;
   description: string;
   imageDataUrl: string;
   faceDescriptor: number[] | null;
   dateReported: string;
   status: "missing" | "found" | "investigating";
   contactInfo: string;
+  bloodGroup: string;
+  height: string;
+  weight: string;
 }
 
 export interface MatchResult {
