@@ -2,15 +2,12 @@ import { MissingPerson } from "@/lib/types";
 import { generateSeedData } from "@/lib/seedData";
 
 const DB_KEY = "missing_persons_db";
-const SEED_KEY = "missing_persons_seeded_v2";
+const SEED_KEY = "missing_persons_seeded_v3_empty";
 
 function ensureSeeded(): void {
   if (!localStorage.getItem(SEED_KEY)) {
-    const existing = getAllPersonsRaw();
-    if (existing.length === 0) {
-      const seed = generateSeedData();
-      localStorage.setItem(DB_KEY, JSON.stringify(seed));
-    }
+    // Reset to an empty database — all reports must be added manually.
+    localStorage.setItem(DB_KEY, JSON.stringify(generateSeedData()));
     localStorage.setItem(SEED_KEY, "true");
   }
 }
