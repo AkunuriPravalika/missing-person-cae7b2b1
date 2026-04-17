@@ -40,6 +40,10 @@ export default function RegisterPage() {
       toast.error("Please fill in required fields");
       return;
     }
+    if (form.contactInfo && form.contactInfo.length !== 10) {
+      toast.error("Contact must be exactly 10 digits");
+      return;
+    }
 
     setProcessing(true);
     try {
