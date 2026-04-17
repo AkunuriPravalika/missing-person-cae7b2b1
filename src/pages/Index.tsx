@@ -30,9 +30,9 @@ const Index = () => {
         className="text-center space-y-4"
       >
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-          Smart Missing Person
+          Missing Person Detection
           <br />
-          <span className="text-gradient-primary">Detection System</span>
+          <span className="text-gradient-primary">using AI</span>
         </h1>
       </motion.div>
 
