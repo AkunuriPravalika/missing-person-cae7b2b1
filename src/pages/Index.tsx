@@ -1,8 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import {
-  Upload,
-  Search,
   Users,
   AlertTriangle,
   CheckCircle2,
@@ -22,27 +19,6 @@ const Index = () => {
     { label: "Missing", value: missing, icon: AlertTriangle, color: "text-warning" },
     { label: "Found", value: found, icon: CheckCircle2, color: "text-accent" },
     { label: "Investigating", value: investigating, icon: Eye, color: "text-info" },
-  ];
-
-  const actions = [
-    {
-      to: "/register",
-      icon: Upload,
-      title: "Report Missing Person",
-      desc: "Upload photo and details to the database",
-    },
-    {
-      to: "/search",
-      icon: Search,
-      title: "Face Match",
-      desc: "Match a photo against the database",
-    },
-    {
-      to: "/database",
-      icon: Users,
-      title: "View Database",
-      desc: "Browse all registered cases",
-    },
   ];
 
   return (
