@@ -23,19 +23,6 @@ const Index = () => {
 
   return (
     <div className="container px-4 py-8 space-y-8">
-      {/* Hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center space-y-4"
-      >
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-          Missing Person Detection
-          <br />
-          <span className="text-gradient-primary">using AI</span>
-        </h1>
-      </motion.div>
-
       {/* Stats */}
       <motion.div
         initial={{ opacity: 0 }}
