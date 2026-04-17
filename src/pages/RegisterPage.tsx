@@ -171,7 +171,15 @@ export default function RegisterPage() {
 
               <div className="space-y-1.5">
                 <label className={labelClass}>Contact Information</label>
-                <Input value={form.contactInfo} onChange={(e) => setForm({ ...form, contactInfo: e.target.value })} placeholder="Phone or email" className={fieldClass} />
+                <Input
+                  type="tel"
+                  inputMode="numeric"
+                  maxLength={10}
+                  value={form.contactInfo}
+                  onChange={(e) => setForm({ ...form, contactInfo: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+                  placeholder="10-digit phone number"
+                  className={fieldClass}
+                />
               </div>
 
               <div className="space-y-1.5">
