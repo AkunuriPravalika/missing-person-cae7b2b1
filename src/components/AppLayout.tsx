@@ -17,13 +17,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16 px-4">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded bg-primary/20 border border-primary/40 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-primary" />
-            </div>
             <div>
-              <h1 className="text-lg font-bold tracking-wider text-foreground leading-none">
-                TRACE<span className="text-primary">AI</span>
-              </h1>
               <p className="text-[10px] font-mono-tech text-muted-foreground tracking-widest">
                 MISSING PERSON DETECTION
               </p>
