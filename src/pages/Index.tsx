@@ -60,31 +60,6 @@ const Index = () => {
         ))}
       </motion.div>
 
-      {/* Actions */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="grid md:grid-cols-3 gap-4"
-      >
-        {actions.map((action) => (
-          <Link key={action.to} to={action.to}>
-            <Card className="bg-card border-border hover:border-primary/40 transition-all group cursor-pointer h-full">
-              <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                <div className="w-14 h-14 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center transition-shadow">
-                  <action.icon className="w-7 h-7 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">{action.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {action.desc}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </motion.div>
     </div>
   );
 };
